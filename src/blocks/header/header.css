@@ -1,0 +1,24 @@
+
+.header {
+    opacity: 0.7;
+    border-bottom: 1px solid #545454;
+    margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+    max-width: 882px;
+    padding-left: 5px;
+    padding-right: 5px;
+    box-sizing: border-box;
+}
+@media all and (max-width: 910px) {
+    .header {
+        max-width: 590px;
+    }
+  }
+  @media all and (max-width: 320px) {
+    .header {
+        margin-top: 28px;
+        margin-bottom: 39px;
+    }
+  } 
