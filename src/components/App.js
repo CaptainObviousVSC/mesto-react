@@ -3,7 +3,7 @@ import '../index.css';
 import Header from './Header'
 import Main from './Main'
 import PopupWithForm from './PopupWithForm'
-import Card from './Card'
+import ImagePopup from './ImagePopup'
 import Footer from './Footer'
 function App() {
     const [isProfilePopupOpen, setIsProfilePopupOpen] = React.useState(false)
@@ -19,11 +19,7 @@ function App() {
       setIsAddPopupOpen(false)
       setIsAvatarPopupOpen(false)
       setIsConfirmPopupOpen(false)
-      setSelectedCard({
-        selectedCard: false,
-        link: '',
-        name: ''
-      })
+      setSelectedCard(false)
     }
     function handleEditProfileClick() {
       setIsProfilePopupOpen(true)
@@ -34,11 +30,12 @@ function App() {
     function handleEditAvatarClick() {
       setIsAvatarPopupOpen(true)
     }
-    function handleCardClick() {
-      setSelectedCard(true)
+    function handleCardClick(card) {
+      setSelectedCard(card)
     }
   return (
     <div className="page">
+      <>
      <Header />
      <Main 
      onEditProfile = {handleEditProfileClick}
@@ -46,12 +43,12 @@ function App() {
      onEditAvatar = {handleEditAvatarClick}
      onConfirmDelete = {handleConfirmDeleteClick}
      onCardClick = {handleCardClick}
-     cardClick = {selectedCard}
      editProfileIsOpen = {isProfilePopupOpen}
      addCardIsOpen = {isAddPlacePopupOpen}
      editAvatarIsOpen = {isEditAvatarPopupOpen}
      confirmDeleteIsOpen = {isConfirmPopupOpen}
      />
+      <ImagePopup card={selectedCard} onClose ={closePopups} />
      <PopupWithForm name="popup_edite" isOpen = {isProfilePopupOpen} title = "Редактировать профиль" 
      children = {
        <> 
@@ -92,6 +89,7 @@ function App() {
      }
      onClose = {closePopups} />
      <Footer/>
+     </>
     </div>
   );
 }
