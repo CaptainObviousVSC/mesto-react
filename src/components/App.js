@@ -35,7 +35,6 @@ function App() {
     }
   return (
     <div className="page">
-      <>
      <Header />
      <Main 
      onEditProfile = {handleEditProfileClick}
@@ -89,7 +88,6 @@ function App() {
      }
      onClose = {closePopups} />
      <Footer/>
-     </>
     </div>
   );
 }
