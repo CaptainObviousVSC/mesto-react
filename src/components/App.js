@@ -5,14 +5,31 @@ import Main from './Main'
 import PopupWithForm from './PopupWithForm'
 import ImagePopup from './ImagePopup'
 import Footer from './Footer'
+import CurrentUserContext from '../contexts/CurrentUserContext'
+import api from '../utils/api';
 function App() {
     const [isProfilePopupOpen, setIsProfilePopupOpen] = React.useState(false)
     const [isAddPlacePopupOpen, setIsAddPopupOpen] = React.useState(false)
     const [isEditAvatarPopupOpen, setIsAvatarPopupOpen] = React.useState(false)
     const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false)
     const [selectedCard, setSelectedCard] = React.useState(false)
+    const [currentUser, setCurrentUser] = React.useState({});
+    const [cards, setCards] = React.useState([])
     function handleConfirmDeleteClick() {
       setIsConfirmPopupOpen(true)
+    }
+    function handleCardLike(card) {
+      api.likeCard(card._id).then((newCard) => {
+        console.log(card._id)
+        const newCards = cards.map((item) => item._id !== card._id ? newCard : item)
+        setCards(newCards);
+      });
+    }
+    function handleCardDelete(card) {
+      api.deleteCard(card._id).then(() => {
+        const newCards = cards.filter(item => item._id !== card._id)
+        setCards(newCards);
+      });
     }
      function closePopups() {
       setIsProfilePopupOpen(false)
@@ -34,6 +51,7 @@ function App() {
       setSelectedCard(card)
     }
   return (
+    <CurrentUserContext.Provider value={currentUser} >
     <div className="page">
      <Header />
      <Main 
@@ -42,6 +60,11 @@ function App() {
      onEditAvatar = {handleEditAvatarClick}
      onConfirmDelete = {handleConfirmDeleteClick}
      onCardClick = {handleCardClick}
+     onCardDelete = {handleCardDelete}
+     onCardLIke = {handleCardLike}
+     cardsMap = {cards}
+     setingCards = {setCards}
+     onCurrentUser = {setCurrentUser}
      editProfileIsOpen = {isProfilePopupOpen}
      addCardIsOpen = {isAddPlacePopupOpen}
      editAvatarIsOpen = {isEditAvatarPopupOpen}
@@ -89,6 +112,7 @@ function App() {
      onClose = {closePopups} />
      <Footer/>
     </div>
+    </CurrentUserContext.Provider>
   );
 }
 
