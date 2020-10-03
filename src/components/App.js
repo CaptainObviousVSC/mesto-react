@@ -18,10 +18,11 @@ function App() {
     function handleConfirmDeleteClick() {
       setIsConfirmPopupOpen(true)
     }
-    function handleCardLike(card) {
-      api.likeCard(card._id).then((newCard) => {
-        console.log(card._id)
-        const newCards = cards.map((item) => item._id !== card._id ? newCard : item)
+    function handleCardLike(cardId) {
+      console.log(cardId)
+      api.likeCard(cardId).then((newCard) => {
+        console.log(cardId)
+        const newCards = cards.map((item) => item._id === cardId ? newCard : item)
         setCards(newCards);
       });
     }
@@ -61,7 +62,7 @@ function App() {
      onConfirmDelete = {handleConfirmDeleteClick}
      onCardClick = {handleCardClick}
      onCardDelete = {handleCardDelete}
-     onCardLIke = {handleCardLike}
+     onCardLike = {handleCardLike}
      cardsMap = {cards}
      setingCards = {setCards}
      onCurrentUser = {setCurrentUser}

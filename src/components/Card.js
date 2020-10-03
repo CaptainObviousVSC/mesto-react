@@ -6,15 +6,16 @@ const cardDeleteButton = (
 ); 
 const isLiked = card.likes.some(i => i._id === currentUser._id);
 
-const cardLikeButton = `${isLiked ? 'element__like_active' : 'element_like'}`; 
+const cardLikeButton = `${isLiked ? 'element__like_active' : 'element__like'}`; 
   function handleClick() {
     onCardClick(card);
   } 
   function handleLikeCard() {
-    onCardLike(card)
+    console.log(card._id)
+    onCardLike(card._id)
   }
   function handleDeleteCard() {
-    onCardDelete(card)
+    onCardDelete(card._id)
   }
   return (
   <li className="element">
