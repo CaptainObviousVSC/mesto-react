@@ -1,12 +1,9 @@
 import React from 'react';
 import Card from './Card'
-import api from '../utils/api'
+ import api from '../utils/api'
 import CurrentUserContext from '../contexts/CurrentUserContext'
-function Main({onCardClick, cardsMap, onCurrentUser, setingCards, onEditAvatar, onEditProfile, onAddPlace, onCardDelete, onCardLike}) {
+function Main({onCardClick, cardsMap, onCurrentUser, setingCards, onEditAvatar, onEditProfile, onAddPlace, onCardDelete, onCardLike, onCardDislike}) {
     const currentUser = React.useContext(CurrentUserContext);
-    const [userName, setUserName] = React.useState()
-    const [userDescription, setUserDescription] = React.useState()
-    const [userAvatar, setUserAvatar] = React.useState()
     React.useEffect(() => {
         api.getInformation().then((data) => {
             onCurrentUser(data)
@@ -33,7 +30,7 @@ return (
     <button className="profile__add" onClick={onAddPlace}></button>
 </section>
 <ul className="elements">
-{cardsMap.map((card, i) => <Card key={i} card={card} onCardClick={onCardClick} currentUser = {currentUser} onCardDelete={onCardDelete} onCardLike={onCardLike}/>)}
+{cardsMap.map((card, i) => <Card key={i} card={card} onCardClick={onCardClick} currentUser = {currentUser} onCardDelete={onCardDelete} onCardLike={onCardLike} onCardDislike={onCardDislike}/>)}
 </ul>
     </main>
 );

@@ -18,7 +18,7 @@ export class Api {
         return Promise.reject(`Ошибка: ${res.status}`)
       })
 }
-editInformation({name, about}) {
+editeInformation({name, about}) {
     return fetch(`${this.baseUrl}/users/me`, {
         method: 'PATCH',
         headers: this.headers,
@@ -78,7 +78,10 @@ return fetch(`${this.baseUrl}/cards/${cardId}`, {
         return fetch(`${this.baseUrl}/cards`, {
             method: 'POST',
             headers: this.headers,
-            body: JSON.stringify(item)
+            body: JSON.stringify({
+              name: item.name,
+              link: item.link
+            })
           })
           .then(res => {
             if (res.ok) {
@@ -87,7 +90,7 @@ return fetch(`${this.baseUrl}/cards/${cardId}`, {
             return Promise.reject(`Ошибка: ${res.status}`)
           } )
     }
-    editeAvatar(avatar) {
+    editAvatar(avatar) {
         return fetch(`${this.baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: this.headers,
